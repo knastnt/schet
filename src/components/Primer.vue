@@ -2,9 +2,9 @@
   <q-page class="flex flex-center">
 <!--    <img alt="Quasar logo" src="../assets/logo.svg" style="width: 200px; height: 200px">-->
     <div class="flex-break">
-      <div class="row" v-if="!isSuccess && !isFail">
+      <div id="primerrow" class="row" v-if="!isSuccess && !isFail && currentAlgoritm">
         <div class="text-h2">{{ primer.primer}}</div>
-        <q-input class="q-ml-md" outlined v-model="maybeanswer">
+        <q-input class="q-ml-md" outlined v-model="maybeanswer" id="ansinput" >
           <template v-slot:after>
             <q-btn color="white" text-color="black" label="ОК" @click="checkanswer()" />
           </template>
@@ -70,6 +70,7 @@ export default {
   },
   methods: {
     checkanswer() {
+      if (this.maybeanswer === null || this.maybeanswer === '') return;
       let number = parseInt(this.maybeanswer);
       if (number === this.primer.answer) {
         this.success();
@@ -89,13 +90,20 @@ export default {
       this.isSuccess = true;
       setTimeout(function(th){
         th.isSuccess = false;
+        th.setFocus();
       }, 1000, this);
     },
     fail() {
       this.isFail = true;
       setTimeout(function(th){
         th.isFail = false;
+        th.setFocus(th);
       }, 3500, this);
+    },
+    setFocus(th) {
+      setTimeout(function(th){
+        document.getElementById("primerrow").getElementsByTagName("input")[0].focus();
+      }, 100, this)
     }
   },
   data() {
