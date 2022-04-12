@@ -4,7 +4,7 @@
     <div class="flex-break">
       <div id="primerrow" class="row" v-if="!isSuccess && !isFail && currentAlgoritm">
         <div class="text-h2">{{ primer.primer}}</div>
-        <q-input class="q-ml-md" outlined v-model="maybeanswer" id="ansinput" >
+        <q-input class="q-ml-md" outlined v-model="maybeanswer" id="ansinput" v-on:keyup.enter="checkanswer()">
           <template v-slot:after>
             <q-btn color="white" text-color="black" label="ОК" @click="checkanswer()" />
           </template>
