@@ -26,12 +26,21 @@
     </q-drawer>
 
     <q-page-container>
+      <q-page v-if="!currentAlgoritm" class="flex flex-center">
+        <div class="flex-break text-center">
+          <div v-for="algoritm in algoritms" class="q-ma-md">
+            <q-btn color="white" text-color="black" :label="algoritm.name" @click="currentAlgoritm = algoritm"/>
+            <br>
+          </div>
+        </div>
+      </q-page>
       <Primer
           :current-algoritm="currentAlgoritm"
           :max-first="maxFirst"
           :max-second="maxSecond"
           :max-answer="maxAnswer"
       />
+
     </q-page-container>
 
   </q-layout>
