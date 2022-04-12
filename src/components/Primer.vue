@@ -2,13 +2,19 @@
   <q-page class="flex flex-center">
 <!--    <img alt="Quasar logo" src="../assets/logo.svg" style="width: 200px; height: 200px">-->
     <div class="flex-break">
-      <div id="primerrow" class="row" v-if="!isSuccess && !isFail && currentAlgoritm">
-        <div class="text-h2">{{ primer.primer}}</div>
-        <q-input class="q-ml-md" outlined v-model="maybeanswer" id="ansinput" v-on:keyup.enter="checkanswer()">
-          <template v-slot:after>
-            <q-btn color="white" text-color="black" label="ОК" @click="checkanswer()" />
-          </template>
-        </q-input>
+      <div id="primerrow" v-if="!isSuccess && !isFail && currentAlgoritm">
+        <div class="row text-h5 text-center q-mb-lg">
+          <div class="col">Правильно:{{this.currentAlgoritm.countSuccess}}</div>
+          <div class="col">Неправильно: {{this.currentAlgoritm.countFail}}</div>
+        </div>
+        <div class="row">
+          <div class="text-h2">{{ primer.primer}}</div>
+          <q-input class="q-ml-md" outlined v-model="maybeanswer" id="ansinput" v-on:keyup.enter="checkanswer()">
+            <template v-slot:after>
+              <q-btn color="white" text-color="black" label="ОК" @click="checkanswer()" />
+            </template>
+          </q-input>
+        </div>
       </div>
     </div>
     <div class="result-s text-h1" v-if="isSuccess">
@@ -73,9 +79,11 @@ export default {
       if (this.maybeanswer === null || this.maybeanswer === '') return;
       let number = parseInt(this.maybeanswer);
       if (number === this.primer.answer) {
+        this.currentAlgoritm.countSuccess++;
         this.success();
         this.drawNewPrimer();
       }else{
+        this.currentAlgoritm.countFail++;
         this.fail();
         this.drawNewPrimer();
       }

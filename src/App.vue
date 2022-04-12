@@ -56,18 +56,24 @@ export default {
       currentAlgoritm: null,
       algoritms: [
           {
+            countSuccess: 0,
+            countFail: 0,
             name: 'Сложение с переходом через десяток',
             logic: function (obj) {
               return obj.first < 10 && obj.ans > 10 && obj.second < 10;
             }
           },
           {
+            countSuccess: 0,
+            countFail: 0,
             name: 'Вычитание с переходом через десяток',
             logic: function (obj) {
               return obj.first > 10 && obj.ans < 10 && obj.ans > 0 && obj.second < 10;
             }
           },
           {
+            countSuccess: 0,
+            countFail: 0,
             name: 'Вперемешку',
             logic: function (obj) {
               return obj.ans >= 0 && obj.ans <= obj.maxAns;
