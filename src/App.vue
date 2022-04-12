@@ -56,23 +56,23 @@ export default {
       currentAlgoritm: null,
       algoritms: [
           {
-            name: 'Сложение до 10',
-            logic: function (obj) {
-              return obj.ans >= 0 && obj.ans <= obj.maxAns;
-            }
-          },
-          {
-            name: 'Вычитание до 10',
+            name: 'Сложение с переходом через десяток',
             logic: function (obj) {
               return obj.first < 10 && obj.ans > 10 && obj.second < 10;
             }
           },
           {
-            name: 'ещё до 10',
+            name: 'Вычитание с переходом через десяток',
             logic: function (obj) {
               return obj.first > 10 && obj.ans < 10 && obj.ans > 0 && obj.second < 10;
             }
-          }
+          },
+          {
+            name: 'Вперемешку',
+            logic: function (obj) {
+              return obj.ans >= 0 && obj.ans <= obj.maxAns;
+            }
+          },
       ]
     }
   },
