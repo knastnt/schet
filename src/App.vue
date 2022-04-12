@@ -26,7 +26,12 @@
     </q-drawer>
 
     <q-page-container>
-      <Primer :current-algoritm="currentAlgoritm" />
+      <Primer
+          :current-algoritm="currentAlgoritm"
+          :max-first="maxFirst"
+          :max-second="maxSecond"
+          :max-answer="maxAnswer"
+      />
     </q-page-container>
 
   </q-layout>
@@ -45,18 +50,27 @@ export default {
 
   data() {
     return {
+      maxFirst: 18,
+      maxSecond: 13,
+      maxAnswer: 20,
       currentAlgoritm: null,
       algoritms: [
           {
             name: 'Сложение до 10',
-            logic: function () {
-              console.log("!!!!!!!!!!!!!!!!!!!!");
+            logic: function (obj) {
+              return obj.ans >= 0 && obj.ans <= obj.maxAns;
             }
           },
           {
             name: 'Вычитание до 10',
-            logic: function () {
-              console.log("?????????????????????");
+            logic: function (obj) {
+              return obj.first < 10 && obj.ans > 10 && obj.second < 10;
+            }
+          },
+          {
+            name: 'ещё до 10',
+            logic: function (obj) {
+              return obj.first > 10 && obj.ans < 10 && obj.ans > 0 && obj.second < 10;
             }
           }
       ]
