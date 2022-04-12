@@ -1,15 +1,24 @@
 <template>
   <q-page class="flex flex-center">
 <!--    <img alt="Quasar logo" src="../assets/logo.svg" style="width: 200px; height: 200px">-->
-    <div class="row">
-      <div class="text-h2">{{ primer.primer}}</div>
-      <q-input class="q-ml-md" outlined v-model="maybeanswer">
-        <template v-slot:after>
-          <q-btn color="white" text-color="black" label="ОК" @click="checkanswer()" />
-        </template>
-      </q-input>
+    <div class="flex-break">
+      <div class="row" v-if="!isSuccess && !isFail">
+        <div class="text-h2">{{ primer.primer}}</div>
+        <q-input class="q-ml-md" outlined v-model="maybeanswer">
+          <template v-slot:after>
+            <q-btn color="white" text-color="black" label="ОК" @click="checkanswer()" />
+          </template>
+        </q-input>
+      </div>
+    </div>
+    <div class="result-s text-h1" v-if="isSuccess">
+      ммммммм!
+    </div>
+    <div class="result-f text-h2" v-if="isFail">
+      {{ primer.primer }} {{ primer.answer }}
     </div>
   </q-page>
+
 </template>
 
 <script>
@@ -63,10 +72,10 @@ export default {
     checkanswer() {
       let number = parseInt(this.maybeanswer);
       if (number === this.primer.answer) {
-        console.log("+");
+        this.success();
         this.drawNewPrimer();
       }else{
-        console.log("-");
+        this.fail();
         this.drawNewPrimer();
       }
       this.maybeanswer = '';
@@ -75,10 +84,24 @@ export default {
       this.primer = generatePrimer(
           this.currentAlgoritm, this.maxFirst, this.maxSecond, this.maxAnswer
       );
+    },
+    success() {
+      this.isSuccess = true;
+      setTimeout(function(th){
+        th.isSuccess = false;
+      }, 1000, this);
+    },
+    fail() {
+      this.isFail = true;
+      setTimeout(function(th){
+        th.isFail = false;
+      }, 3500, this);
     }
   },
   data() {
     return {
+      isSuccess: false,
+      isFail: false,
       maybeanswer: null,
       primer: {
         primer: '7 - 7',
@@ -90,5 +113,10 @@ export default {
 </script>
 
 <style scoped>
-
+  .result-s {
+    color: #21BA45;
+  }
+  .result-f {
+    color: #C10015;
+  }
 </style>
