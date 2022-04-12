@@ -26,7 +26,7 @@
     </q-drawer>
 
     <q-page-container>
-      <Primer />
+      <Primer :current-algoritm="currentAlgoritm" />
     </q-page-container>
 
   </q-layout>
@@ -50,13 +50,13 @@ export default {
           {
             name: 'Сложение до 10',
             logic: function () {
-
+              console.log("!!!!!!!!!!!!!!!!!!!!");
             }
           },
           {
             name: 'Вычитание до 10',
             logic: function () {
-
+              console.log("?????????????????????");
             }
           }
       ]
