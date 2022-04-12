@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="result-s text-h1" v-if="isSuccess">
-      ммммммм!
+      {{ getSuccessText() }}
     </div>
     <div class="result-f text-h2" v-if="isFail">
       {{ primer.primer }} {{ primer.answer }}
@@ -112,6 +112,10 @@ export default {
       setTimeout(function(th){
         document.getElementById("primerrow").getElementsByTagName("input")[0].focus();
       }, 100, this)
+    },
+    getSuccessText(){
+      let randomIndex = Math.trunc(Math.random() * this.successTexts.length)
+      return this.successTexts[randomIndex];
     }
   },
   data() {
@@ -122,7 +126,20 @@ export default {
       primer: {
         primer: '7 - 7',
         answer: 0
-      }
+      },
+      successTexts: [
+        'Молодец!',
+        'Умница!',
+        'Так держать!',
+        'Талант!',
+        'Здорово!',
+        'Великолепно!',
+        'Правильно!',
+        'Отлично!',
+        'Замечательно!',
+        'Класс!',
+        'Шедеврально!'
+      ]
     }
   }
 }
