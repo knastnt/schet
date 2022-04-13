@@ -1,19 +1,21 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="flex flex-center q-mx-md">
 <!--    <img alt="Quasar logo" src="../assets/logo.svg" style="width: 200px; height: 200px">-->
     <div class="flex-break">
       <div id="primerrow" v-if="!showSuccess && !showFail && currentAlgoritm">
         <div class="row text-h5 text-center q-mb-lg">
-          <div class="col">Правильно:{{this.currentAlgoritm.countSuccess}}</div>
-          <div class="col">Неправильно: {{this.currentAlgoritm.countFail}}</div>
+          <div class="col-xs-12 col-sm-6">Правильно:{{this.currentAlgoritm.countSuccess}}</div>
+          <div class="col-xs-12 col-sm-6">Неправильно: {{this.currentAlgoritm.countFail}}</div>
         </div>
         <div class="row">
-          <div class="text-h2">{{ primer.primer}}</div>
-          <q-input class="q-ml-md" outlined v-model="maybeanswer" id="ansinput" v-on:keyup.enter="checkanswer()">
-            <template v-slot:after>
-              <q-btn color="white" text-color="black" label="ОК" @click="checkanswer()" />
-            </template>
-          </q-input>
+          <div class="text-h2 col-xs-12 col-sm-6 text-center">{{ primer.primer}}</div>
+          <div class="col-xs-12 col-sm-6">
+            <q-input outlined v-model="maybeanswer" id="ansinput" v-on:keyup.enter="checkanswer()">
+              <template v-slot:after>
+                <q-btn color="white" text-color="black" label="ОК" @click="checkanswer()" />
+              </template>
+            </q-input>
+          </div>
         </div>
       </div>
     </div>
