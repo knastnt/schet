@@ -19,10 +19,17 @@
         </div>
       </div>
     </div>
-    <div class="result-s text-h1" v-if="showSuccess">
+    <div class="result-s text-h1 gt-xs" v-if="showSuccess">
       {{ textSuccess }}
     </div>
-    <div class="result-f text-h2" v-if="showFail">
+    <div class="result-f text-h2 gt-xs" v-if="showFail">
+      {{ textFail }}
+    </div>
+
+    <div class="result-s text-h1 lt-sm" v-if="showSuccess" style="font-size: 12.5vw;">
+      {{ textSuccess }}
+    </div>
+    <div class="result-f text-h2 lt-sm" v-if="showFail" style="font-size: 12.5vw;">
       {{ textFail }}
     </div>
   </q-page>
