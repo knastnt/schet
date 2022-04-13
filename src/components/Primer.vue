@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
 <!--    <img alt="Quasar logo" src="../assets/logo.svg" style="width: 200px; height: 200px">-->
     <div class="flex-break">
-      <div id="primerrow" v-if="!isSuccess && !isFail && currentAlgoritm">
+      <div id="primerrow" v-if="!showSuccess && !showFail && currentAlgoritm">
         <div class="row text-h5 text-center q-mb-lg">
           <div class="col">Правильно:{{this.currentAlgoritm.countSuccess}}</div>
           <div class="col">Неправильно: {{this.currentAlgoritm.countFail}}</div>
@@ -17,11 +17,11 @@
         </div>
       </div>
     </div>
-    <div class="result-s text-h1" v-if="isSuccess">
-      {{ getSuccessText() }}
+    <div class="result-s text-h1" v-if="showSuccess">
+      {{ textSuccess }}
     </div>
-    <div class="result-f text-h2" v-if="isFail">
-      {{ primer.primer }} {{ primer.answer }}
+    <div class="result-f text-h2" v-if="showFail">
+      {{ textFail }}
     </div>
   </q-page>
 
@@ -76,6 +76,7 @@ export default {
   },
   methods: {
     checkanswer() {
+      console.log("check answer");
       if (this.maybeanswer === null || this.maybeanswer === '') return;
       let number = parseInt(this.maybeanswer);
       this.maybeanswer = '';
@@ -88,24 +89,33 @@ export default {
       }
     },
     drawNewPrimer() {
+      console.log("draw new primer");
       this.primer = generatePrimer(
           this.currentAlgoritm, this.maxFirst, this.maxSecond, this.maxAnswer
       );
     },
     success() {
-      this.isSuccess = true;
+      console.log("show success");
+      this.textSuccess = this.getSuccessText();
+      this.showSuccess = true;
       setTimeout(function(th){
-        th.isSuccess = false;
+        th.showSuccess = false;
+        this.textSuccess = '';
         th.drawNewPrimer();
         th.setFocus(th);
+        console.log("hide success");
       }, 1000, this);
     },
     fail() {
-      this.isFail = true;
+      console.log("show fail");
+      this.textFail = this.primer.primer + this.primer.answer;
+      this.showFail = true;
       setTimeout(function(th){
-        th.isFail = false;
+        th.showFail = false;
+        this.textFail = '';
         th.drawNewPrimer();
         th.setFocus(th);
+        console.log("hide fail");
       }, 3500, this);
     },
     setFocus(th) {
@@ -120,8 +130,10 @@ export default {
   },
   data() {
     return {
-      isSuccess: false,
-      isFail: false,
+      showSuccess: false,
+      textSuccess: '',
+      showFail: false,
+      textFail: '',
       maybeanswer: null,
       primer: {
         primer: '7 - 7',
