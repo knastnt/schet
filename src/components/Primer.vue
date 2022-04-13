@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
 <!--    <img alt="Quasar logo" src="../assets/logo.svg" style="width: 200px; height: 200px">-->
     <div class="flex-break">
-      <div id="primerrow" v-if="!isSuccess && !isFail && currentAlgoritm">
+      <div id="primerrow" v-show="!isSuccess && !isFail && currentAlgoritm">
         <div class="row text-h5 text-center q-mb-lg">
           <div class="col">Правильно:{{this.currentAlgoritm.countSuccess}}</div>
           <div class="col">Неправильно: {{this.currentAlgoritm.countFail}}</div>
@@ -17,10 +17,10 @@
         </div>
       </div>
     </div>
-    <div class="result-s text-h1" v-if="isSuccess">
+    <div class="result-s text-h1" v-show="isSuccess">
       {{ getSuccessText() }}
     </div>
-    <div class="result-f text-h2" v-if="isFail">
+    <div class="result-f text-h2" v-show="isFail">
       {{ primer.primer }} {{ primer.answer }}
     </div>
   </q-page>
@@ -78,16 +78,14 @@ export default {
     checkanswer() {
       if (this.maybeanswer === null || this.maybeanswer === '') return;
       let number = parseInt(this.maybeanswer);
+      this.maybeanswer = '';
       if (number === this.primer.answer) {
         this.currentAlgoritm.countSuccess++;
         this.success();
-        this.drawNewPrimer();
       }else{
         this.currentAlgoritm.countFail++;
         this.fail();
-        this.drawNewPrimer();
       }
-      this.maybeanswer = '';
     },
     drawNewPrimer() {
       this.primer = generatePrimer(
@@ -98,13 +96,15 @@ export default {
       this.isSuccess = true;
       setTimeout(function(th){
         th.isSuccess = false;
-        th.setFocus();
+        th.drawNewPrimer();
+        th.setFocus(th);
       }, 1000, this);
     },
     fail() {
       this.isFail = true;
       setTimeout(function(th){
         th.isFail = false;
+        th.drawNewPrimer();
         th.setFocus(th);
       }, 3500, this);
     },
