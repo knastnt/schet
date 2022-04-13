@@ -35,7 +35,7 @@
         </div>
       </q-page>
       <Primer
-          v-if="currentAlgoritm"
+          v-show="currentAlgoritm"
           :current-algoritm="currentAlgoritm"
           :max-first="maxFirst"
           :max-second="maxSecond"
