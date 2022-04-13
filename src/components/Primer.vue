@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
 <!--    <img alt="Quasar logo" src="../assets/logo.svg" style="width: 200px; height: 200px">-->
     <div class="flex-break">
-      <div id="primerrow" v-show="!isSuccess && !isFail && currentAlgoritm">
+      <div id="primerrow" v-if="!isSuccess && !isFail && currentAlgoritm">
         <div class="row text-h5 text-center q-mb-lg">
           <div class="col">Правильно:{{this.currentAlgoritm.countSuccess}}</div>
           <div class="col">Неправильно: {{this.currentAlgoritm.countFail}}</div>
@@ -17,10 +17,10 @@
         </div>
       </div>
     </div>
-    <div class="result-s text-h1" v-show="isSuccess">
+    <div class="result-s text-h1" v-if="isSuccess">
       {{ getSuccessText() }}
     </div>
-    <div class="result-f text-h2" v-show="isFail">
+    <div class="result-f text-h2" v-if="isFail">
       {{ primer.primer }} {{ primer.answer }}
     </div>
   </q-page>
